@@ -1,0 +1,38 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: frontend-portal-pipeline
+spec:
+  params:
+    - name: git-url
+      type: string
+  workspaces:
+    - name: shared-workspace
+  tasks:
+    - name: clone
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: $(params.git-url)
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+
+    - name: build
+      runAfter:
+        - clone
+      taskRef:
+        name: npm-build
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+
+    - name: kaniko
+      runAfter:
+        - build
+      taskRef:
+        name: kaniko-build-portal
+      workspaces:
+        - name: source
+          workspace: shared-workspace

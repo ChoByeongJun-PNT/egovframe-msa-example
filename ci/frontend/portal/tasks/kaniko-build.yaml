@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: kaniko-build-portal
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: kaniko
+      image: gcr.io/kaniko-project/executor:latest
+      workingDir: $(workspaces.source.path)
+      args:
+        - --dockerfile=frontend/portal/Dockerfile
+        - --context=$(workspaces.source.path)/frontend/portal
+        - --tarPath=$(workspaces.source.path)/portal.tar
+        - --no-push
