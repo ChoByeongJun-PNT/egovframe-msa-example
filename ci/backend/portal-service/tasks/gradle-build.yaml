@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: portal-service-gradle-build
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: build
+      image: gradle:7.3-jdk8
+      workingDir: $(workspaces.source.path)/backend/portal-service
+      script: |
+        #!/bin/sh
+        set -e
+        chmod +x ./gradlew
+        ./gradlew bootJar
