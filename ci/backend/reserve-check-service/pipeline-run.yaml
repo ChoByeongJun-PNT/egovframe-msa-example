@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: reserve-check-service-pipelinerun
+spec:
+  pipelineRef:
+    name: reserve-check-service-pipeline
+  params:
+    - name: git-url
+      value: https://github.com/ChoByeongJun-PNT/egovframe-msa-example.git
+    - name: git-revision
+      value: main
+    - name: dockerfile
+      value: DockerfileK8s
+  workspaces:
+    - name: shared-workspace
+      volumeClaimTemplate:
+        metadata:
+          name: reserve-check-service-workspace
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 1Gi
