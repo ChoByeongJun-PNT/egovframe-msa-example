@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: kaniko-build-admin
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: kaniko
+      image: gcr.io/kaniko-project/executor:latest
+      workingDir: $(workspaces.source.path)
+      args:
+        - --dockerfile=frontend/admin/Dockerfile
+        - --context=$(workspaces.source.path)/frontend/admin
+        - --tarPath=$(workspaces.source.path)/admin.tar
+        - --no-push

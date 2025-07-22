@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: frontend-admin-pipelinerun
+spec:
+  pipelineRef:
+    name: frontend-admin-pipeline
+  params:
+    - name: git-url
+      value: https://github.com/ChoByeongJun-PNT/egovframe-msa-example.git
+  workspaces:
+    - name: shared-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 1Gi
