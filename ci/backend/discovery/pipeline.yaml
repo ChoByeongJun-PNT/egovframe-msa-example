@@ -1,0 +1,52 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: discovery-pipeline
+spec:
+  params:
+    - name: git-url
+      type: string
+    - name: git-revision
+      type: string
+      default: main
+    - name: dockerfile
+      type: string
+      default: DockerfileK8s
+  workspaces:
+    - name: shared-workspace
+
+  tasks:
+    - name: clone
+      taskRef:
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+      params:
+        - name: url
+          value: $(params.git-url)
+        - name: revision
+          value: $(params.git-revision)
+
+    - name: gradle
+      taskRef:
+        name: discovery-gradle-build
+      runAfter:
+        - clone
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+
+    - name: kaniko
+      taskRef:
+        name: discovery-kaniko-build
+      runAfter:
+        - gradle
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+        - name: output
+          workspace: shared-workspace
+      params:
+        - name: dockerfile
+          value: $(params.dockerfile)
