@@ -16,7 +16,7 @@ spec:
     - name: output
   steps:
     - name: clone
-      image: alpine/git
+      image: harbor.conechain.com/tekton/alpine/git
       script: |
         #!/bin/sh
         set -e
