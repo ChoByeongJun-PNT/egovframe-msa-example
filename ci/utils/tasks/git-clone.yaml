@@ -4,14 +4,11 @@ metadata:
   name: git-clone
 spec:
   params:
-    - name: url
+    - name: repo-url
       type: string
     - name: revision
       type: string
-      default: main
-    - name: subdirectory
-      type: string
-      default: ""
+      default: "main"
   workspaces:
     - name: output
   steps:
@@ -20,7 +17,4 @@ spec:
       script: |
         #!/bin/sh
         set -e
-        git clone $(params.url) $(workspaces.output.path)/$(params.subdirectory)
-        cd $(workspaces.output.path)/$(params.subdirectory)
-        git checkout $(params.revision)
-        
+        git clone --single-branch --branch $(params.revision) $(params.repo-url) $(workspaces.output.path)
