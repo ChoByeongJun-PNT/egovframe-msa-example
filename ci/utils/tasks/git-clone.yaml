@@ -16,10 +16,11 @@ spec:
     - name: output
   steps:
     - name: clone
-      image: harbor.conechain.com/tekton/alpine/git
+      image: alpine/git:v2.49.1
       script: |
         #!/bin/sh
         set -e
         git clone $(params.url) $(workspaces.output.path)/$(params.subdirectory)
         cd $(workspaces.output.path)/$(params.subdirectory)
         git checkout $(params.revision)
+        

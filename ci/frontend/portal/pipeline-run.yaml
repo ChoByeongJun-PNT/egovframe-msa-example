@@ -8,6 +8,8 @@ spec:
   params:
     - name: git-url
       value: https://github.com/ChoByeongJun-PNT/egovframe-msa-example.git
+    - name: revision
+      value: main
   workspaces:
     - name: shared-workspace
       volumeClaimTemplate:

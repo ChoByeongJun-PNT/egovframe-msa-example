@@ -7,12 +7,12 @@ spec:
     - name: source
   steps:
     - name: install-and-build
-      image: node:18
+      image: node:18-alpine
       workingDir: $(workspaces.source.path)/frontend/portal
       env:
         - name: NODE_OPTIONS
           value: "--openssl-legacy-provider"
       script: |
-        #!/bin/bash
+        #!/bin/sh
         npm ci
         npm run build
