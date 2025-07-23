@@ -11,8 +11,11 @@ spec:
   workspaces:
     - name: shared-workspace
       volumeClaimTemplate:
+        metadata:
+          name: frontend-portal-workspace-pvc
         spec:
           accessModes: ["ReadWriteOnce"]
+          storageClassName: sc-nas-gitea
           resources:
             requests:
               storage: 1Gi
