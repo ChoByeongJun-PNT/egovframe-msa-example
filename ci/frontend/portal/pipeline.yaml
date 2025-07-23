@@ -13,7 +13,7 @@ spec:
       taskRef:
         name: git-clone
       params:
-        - name: url
+        - name: git-url
           value: $(params.git-url)
       workspaces:
         - name: output
