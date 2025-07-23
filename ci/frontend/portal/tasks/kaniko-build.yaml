@@ -9,6 +9,8 @@ spec:
     - name: kaniko
       image: gcr.io/kaniko-project/executor:v1.24.0
       workingDir: $(workspaces.source.path)
+      command:
+        - /kaniko/executor
       args:
         - --dockerfile=frontend/portal/Dockerfile
         - --context=$(workspaces.source.path)/frontend/portal

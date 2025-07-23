@@ -12,7 +12,10 @@ spec:
       env:
         - name: NODE_OPTIONS
           value: "--openssl-legacy-provider"
-      script: |
-        #!/bin/sh
-        npm ci
-        npm run build
+      command:
+        - /bin/sh
+      args:
+        - -c
+        - |
+          npm ci
+          npm run build

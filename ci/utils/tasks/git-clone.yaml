@@ -14,7 +14,10 @@ spec:
   steps:
     - name: clone
       image: alpine/git:v2.49.1
-      script: |
-        #!/bin/sh
-        set -e
-        git clone --single-branch --branch $(params.revision) $(params.git-url) $(workspaces.output.path)
+      command:
+        - /bin/sh
+      args:
+        - -c
+        - |
+          set -e
+          git clone --single-branch --branch $(params.revision) $(params.git-url) $(workspaces.output.path)
