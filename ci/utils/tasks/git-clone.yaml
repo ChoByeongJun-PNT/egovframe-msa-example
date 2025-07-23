@@ -4,7 +4,7 @@ metadata:
   name: git-clone
 spec:
   params:
-    - name: repo-url
+    - name: git-url
       type: string
     - name: revision
       type: string
@@ -17,4 +17,4 @@ spec:
       script: |
         #!/bin/sh
         set -e
-        git clone --single-branch --branch $(params.revision) $(params.repo-url) $(workspaces.output.path)
+        git clone --single-branch --branch $(params.revision) $(params.git-url) $(workspaces.output.path)

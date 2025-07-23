@@ -6,7 +6,7 @@ spec:
   pipelineRef:
     name: frontend-portal-pipeline
   params:
-    - name: repo-url
+    - name: git-url
       value: https://github.com/ChoByeongJun-PNT/egovframe-msa-example.git
     - name: revision
       value: main
